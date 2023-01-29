@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,13 @@ namespace Repository
         public RepositoryContext(DbContextOptions options)
         : base(options)
         {
-
         }
-        
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
         public DbSet<Admin> admins { get; set; }
         public DbSet<User> users { get; set; }
         public DbSet<Comment> comments { get; set; }
