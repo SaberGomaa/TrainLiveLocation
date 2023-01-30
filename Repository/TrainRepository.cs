@@ -10,7 +10,7 @@ namespace Repository
 {
     public class TrainRepository : RepositoryBase<Train>, ITrainRepository
     {
-        protected TrainRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        public TrainRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
 

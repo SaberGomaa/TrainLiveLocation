@@ -10,7 +10,7 @@ namespace Repository
 {
     public class PaymentRepository : RepositoryBase<Payment>, IPaymentRepository
     {
-        protected PaymentRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        public PaymentRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
     }

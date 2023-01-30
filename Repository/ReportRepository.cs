@@ -10,7 +10,7 @@ namespace Repository
 {
     public class ReportRepository : RepositoryBase<Report>, IReportRepository
     {
-        protected ReportRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        public ReportRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
     }

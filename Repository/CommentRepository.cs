@@ -10,7 +10,7 @@ namespace Repository
 {
     public class CommentRepository : RepositoryBase<Comment>, ICommentRepository
     {
-        protected CommentRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        public CommentRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
     }
