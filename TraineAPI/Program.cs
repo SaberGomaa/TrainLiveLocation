@@ -1,9 +1,16 @@
+
+using TraineAPI.Extentation;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+//register repositorymanegar 
+builder.Services.ConfigreRepositoryManegar();
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
