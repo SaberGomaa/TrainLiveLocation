@@ -13,7 +13,7 @@ namespace Entites
         public int Id { get; set; }
         public string? Content { get; set; }
         public int TrainNumber { get; set; }
-        public bool critical { get; set; }
+        public bool Critical { get; set; }
         public string? Img { get; set; }
 
         public ICollection<Comment>?comments { get; set; }
