@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Contracts;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace TraineAPI.Presentation.Controllers
 {
-   
+    [Route("api/[controller]")]
+    [ApiController]
+    //(ControllerBase)which provides all necessary behavior for the derived class
     public class AdminController : ControllerBase
     {
+        private readonly IRepositoryManegar _repository;
+        public AdminController (IRepositoryManegar repository)
+        {
+            _repository = repository;
+        }
+
     }
 }
