@@ -10,7 +10,7 @@ namespace Repository
 {
     public class AdminRepository : RepositoryBase<Admin>, IAdminRepository
     {
-        protected AdminRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        public AdminRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
     }

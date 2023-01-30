@@ -10,7 +10,7 @@ namespace Repository
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
-        protected UserRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        public UserRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
     }

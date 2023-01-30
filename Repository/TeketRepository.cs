@@ -10,7 +10,7 @@ namespace Repository
 {
     public class TeketRepository : RepositoryBase<Ticket>, ITeketRepository
     {
-        protected TeketRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        public TeketRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
     }
