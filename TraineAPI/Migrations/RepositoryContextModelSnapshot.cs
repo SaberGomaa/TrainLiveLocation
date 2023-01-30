@@ -129,6 +129,9 @@ namespace TraineAPI.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Critical")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
 
@@ -140,9 +143,6 @@ namespace TraineAPI.Migrations
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("critical")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -225,6 +225,9 @@ namespace TraineAPI.Migrations
                     b.Property<int>("PaymentId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<bool>("ScanedOrNot")
                         .HasColumnType("bit");
 
@@ -242,9 +245,6 @@ namespace TraineAPI.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<double>("price")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

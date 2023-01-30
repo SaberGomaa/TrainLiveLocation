@@ -1,10 +1,11 @@
-﻿using Contracts;
+﻿using System.Diagnostics.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Contracts;
 
 namespace TraineAPI.Presentation.Controllers
 {
