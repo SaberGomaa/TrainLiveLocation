@@ -7,6 +7,7 @@ using Repository;
 // because migration assembly is not in our main project, but in the Repository project
 namespace Train_API.ContextFactory
 {
+    //we have registered our RepositoryContext class at design time at RepositoryContextFactory This helps us find the RepositoryContext class in another project while executing migrations
     public class RepositoryContextFactory : IDesignTimeDbContextFactory<RepositoryContext>
     {
         public RepositoryContext CreateDbContext(string[] args)
