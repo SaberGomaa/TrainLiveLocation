@@ -15,7 +15,7 @@ namespace Entites
         public DateTime TakeOffDate { get; set; }
         public string? TakeOffStation { get; set; }
         public string? ArrivalStation { get; set; }
-        public double price { get; set; }
+        public double Price { get; set; }
         public bool ScanedOrNot { get; set; }
         public string? TrainDegree { get; set; }
 
