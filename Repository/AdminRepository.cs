@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Repository
 {
@@ -13,5 +14,11 @@ namespace Repository
         public AdminRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
+
+        public IEnumerable<Admin> GetAllAdmins()=>
+            FindAll()
+            .OrderBy(c => c.Name)
+            .ToList();
+        
     }
 }

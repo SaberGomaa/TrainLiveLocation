@@ -18,7 +18,7 @@ namespace Repository
         }
 
 
-        public IQueryable<T> FiindAll()
+        public IQueryable<T> FindAll()
         {
            return repositoryContext.Set<T>();
         }
