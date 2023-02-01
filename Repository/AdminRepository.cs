@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entites;
+using Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

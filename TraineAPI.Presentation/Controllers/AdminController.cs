@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Contracts;
+using Shared.DTOs;
 
 namespace TraineAPI.Presentation.Controllers
 {
@@ -26,15 +27,20 @@ namespace TraineAPI.Presentation.Controllers
         {
             try
             {
-                var admins = _repository.Admin.GetAllAdmins();
-                if(admins == null)
+                var Admins = _repository.Admin.GetAllAdmins();
+
+                var AdminsDto = Admins.Select(
+                    c => new AdminDto(c.Id, c.Name, c.Password, c.Phone, c.Email , c.AdminDegree  ))
+                    .ToList();
+
+                if(AdminsDto == null)
                 {
                     return StatusCode(404, "Empty");
 
                 }
                 else
                 {
-                    return Ok(admins);
+                    return Ok(AdminsDto);
                 }
             }
             catch
