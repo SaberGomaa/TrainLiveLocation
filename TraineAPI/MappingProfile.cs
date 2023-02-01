@@ -9,6 +9,9 @@ namespace TraineAPI
     {
         public MappingProfile() {
             CreateMap<Admin, AdminDto>();
+
+            CreateMap<AdminCreationDto, Admin>();
+
         }
     }
 }

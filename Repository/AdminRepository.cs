@@ -24,5 +24,16 @@ namespace Repository
         public Admin GetAdminById(int Id) =>
             FindByCondition(c => c.Id.Equals(Id)).SingleOrDefault();
 
+        public void CreateAdmin(Admin admin) =>
+            Create(admin);
+
+        
+
+        public void DeleteAdmin(Admin admin)=>
+            Delete(admin);
+
+        public void UpdateAdmin(Admin admin) =>
+            Update(admin);
+
     }
 }

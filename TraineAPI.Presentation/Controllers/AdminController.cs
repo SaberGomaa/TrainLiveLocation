@@ -84,6 +84,22 @@ namespace TraineAPI.Presentation.Controllers
 
             }
         }
-        
+
+        [HttpPost(Name = "CreateAdmin")]
+        public IActionResult CreateAdmin([FromBody] AdminCreationDto admin)
+        {
+            ArgumentNullException.ThrowIfNull(admin);
+
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
+            var entitAdminEntity = _mapper.Map<Admin>(admin);
+            _repository.Admin.CreateAdmin(entitAdminEntity);
+
+            _repository.Save();
+            var adminToReturn = _mapper.Map<AdminDto>(entitAdminEntity);
+            return CreatedAtRoute("GetAdmin", new { Id = adminToReturn.Id }, adminToReturn);
+        }
+
     }
 }
