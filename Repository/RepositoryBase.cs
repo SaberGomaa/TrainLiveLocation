@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,5 +39,7 @@ namespace Repository
         {    
             repositoryContext.Set<T>().Remove(entity);
         }
+
+       
     }
 }

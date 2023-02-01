@@ -21,5 +21,8 @@ namespace Repository
             .OrderBy(c => c.Name)
             .ToList();
         
+        public Admin GetAdminById(int Id) =>
+            FindByCondition(c => c.Id.Equals(Id)).SingleOrDefault();
+
     }
 }

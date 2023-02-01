@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Contracts;
 using Shared.DTOs;
+using AutoMapper;
+using Entites;
 
 namespace TraineAPI.Presentation.Controllers
 {
@@ -17,9 +19,12 @@ namespace TraineAPI.Presentation.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IRepositoryManegar _repository;
-        public AdminController (IRepositoryManegar repository)
+        private readonly IMapper _mapper;
+
+        public AdminController (IRepositoryManegar repository , IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet (Name = "Admins")]
@@ -27,11 +32,15 @@ namespace TraineAPI.Presentation.Controllers
         {
             try
             {
+                //var Admins = _repository.Admin.GetAllAdmins();
+
+                //var AdminsDto = Admins.Select(
+                //    c => new AdminDto(c.Id, c.Name, c.Password, c.Phone, c.Email , c.AdminDegree  ))
+                //    .ToList();
+
                 var Admins = _repository.Admin.GetAllAdmins();
 
-                var AdminsDto = Admins.Select(
-                    c => new AdminDto(c.Id, c.Name, c.Password, c.Phone, c.Email , c.AdminDegree  ))
-                    .ToList();
+                var AdminsDto = _mapper.Map<IEnumerable<AdminDto>> (Admins);
 
                 if(AdminsDto == null)
                 {
@@ -49,6 +58,32 @@ namespace TraineAPI.Presentation.Controllers
             }
         }
 
+        [HttpGet("{id:int}", Name = "GetAdmin")]
+        public IActionResult GetAdmin(int id)
+        {
+            try
+            {
 
+                var admin = _repository.Admin.GetAdminById(id);
+
+                var adminDTO = _mapper.Map<AdminDto>(admin);
+                ArgumentNullException.ThrowIfNull(adminDTO);
+                if (adminDTO == null)
+                {
+                    return StatusCode(404, "Empty");
+                }
+                else
+                {
+                    return Ok(adminDTO);
+                }
+
+            }
+            catch
+            {
+                return StatusCode(500, "Internal server error");
+
+            }
+        }
+        
     }
 }

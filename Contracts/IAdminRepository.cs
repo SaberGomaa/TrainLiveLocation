@@ -11,7 +11,7 @@ namespace Contracts
     public interface IAdminRepository
     {
             IEnumerable<Admin> GetAllAdmins();
-        
+            Admin GetAdminById(int Id);
     }
     
 }
