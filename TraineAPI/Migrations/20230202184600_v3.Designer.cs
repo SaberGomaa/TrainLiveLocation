@@ -12,8 +12,8 @@ using Repository;
 namespace TraineAPI.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230129232330_init")]
-    partial class init
+    [Migration("20230202184600_v3")]
+    partial class v3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,9 @@ namespace TraineAPI.Migrations
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
@@ -132,11 +135,11 @@ namespace TraineAPI.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Critical")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReportId")
-                        .HasColumnType("int");
 
                     b.Property<int>("TrainNumber")
                         .HasColumnType("int");
@@ -144,14 +147,9 @@ namespace TraineAPI.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("critical")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
-
-                    b.HasIndex("ReportId");
 
                     b.HasIndex("UserId");
 
@@ -173,10 +171,15 @@ namespace TraineAPI.Migrations
                     b.Property<string>("Descreption")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -228,6 +231,9 @@ namespace TraineAPI.Migrations
                     b.Property<int>("PaymentId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
                     b.Property<bool>("ScanedOrNot")
                         .HasColumnType("bit");
 
@@ -245,9 +251,6 @@ namespace TraineAPI.Migrations
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<double>("price")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -382,30 +385,30 @@ namespace TraineAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entites.Report", "Report")
-                        .WithMany("posts")
-                        .HasForeignKey("ReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entites.User", "User")
                         .WithMany("posts")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Admin");
 
-                    b.Navigation("Report");
-
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entites.Report", b =>
                 {
+                    b.HasOne("Entites.Post", "Post")
+                        .WithMany("reports")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entites.User", "User")
                         .WithMany("reports")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Post");
 
                     b.Navigation("User");
                 });
@@ -459,11 +462,8 @@ namespace TraineAPI.Migrations
             modelBuilder.Entity("Entites.Post", b =>
                 {
                     b.Navigation("comments");
-                });
 
-            modelBuilder.Entity("Entites.Report", b =>
-                {
-                    b.Navigation("posts");
+                    b.Navigation("reports");
                 });
 
             modelBuilder.Entity("Entites.Train", b =>

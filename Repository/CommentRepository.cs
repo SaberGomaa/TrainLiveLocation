@@ -12,6 +12,22 @@ namespace Repository
     {
         public CommentRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
+
         }
+
+        public void CreateComment(Comment comment) =>
+            Create(comment);
+
+        public void DeleteComment(Comment comment) =>
+            Delete(comment);
+        public IEnumerable<Comment> GetAllComments()=>
+            FindAll()
+            .OrderBy(x => x.Date)
+            .ToList();
+
+        public Comment GetCommentById(int Id)=>
+            FindByCondition(x => x.Equals(Id)).SingleOrDefault();
+
+        public void UpdateComment(Comment comment)=>Update(comment);
     }
 }

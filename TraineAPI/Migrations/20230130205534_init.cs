@@ -124,7 +124,7 @@ namespace TraineAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrainNumber = table.Column<int>(type: "int", nullable: false),
-                    critical = table.Column<bool>(type: "bit", nullable: false),
+                    Critical = table.Column<bool>(type: "bit", nullable: false),
                     Img = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdminId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
@@ -172,7 +172,7 @@ namespace TraineAPI.Migrations
                         column: x => x.AdminId,
                         principalTable: "admins",
                         principalColumn: "AdminId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_comments_posts_PostId",
                         column: x => x.PostId,
@@ -184,7 +184,7 @@ namespace TraineAPI.Migrations
                         column: x => x.UserId,
                         principalTable: "users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -214,7 +214,7 @@ namespace TraineAPI.Migrations
                     TakeOffDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TakeOffStation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ArrivalStation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    price = table.Column<double>(type: "float", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     ScanedOrNot = table.Column<bool>(type: "bit", nullable: false),
                     TrainDegree = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -234,7 +234,7 @@ namespace TraineAPI.Migrations
                         column: x => x.UserId,
                         principalTable: "users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 //register repositorymanegar 
 builder.Services.ConfigreRepositoryManegar();
 builder.Services.ConfigureSqlContext(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(Program));
 
 
 // Add services to the container.

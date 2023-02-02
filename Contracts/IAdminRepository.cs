@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Entites;
+using Shared.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,11 @@ namespace Contracts
 {
     public interface IAdminRepository
     {
+            IEnumerable<Admin> GetAllAdmins();
+            Admin GetAdminById(int Id);
+            void CreateAdmin(Admin admin);
+            void DeleteAdmin(Admin admin);
+            void UpdateAdmin(Admin admin);
     }
+    
 }
