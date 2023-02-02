@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace TraineAPI.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230202181817_v1")]
+    partial class v1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,6 +141,9 @@ namespace TraineAPI.Migrations
                     b.Property<string>("Img")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ReportId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TrainNumber")
                         .HasColumnType("int");
 
@@ -147,6 +153,8 @@ namespace TraineAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
+
+                    b.HasIndex("ReportId");
 
                     b.HasIndex("UserId");
 
@@ -168,15 +176,10 @@ namespace TraineAPI.Migrations
                     b.Property<string>("Descreption")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PostId");
 
                     b.HasIndex("UserId");
 
@@ -382,30 +385,30 @@ namespace TraineAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entites.Report", "Report")
+                        .WithMany("posts")
+                        .HasForeignKey("ReportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entites.User", "User")
                         .WithMany("posts")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Admin");
 
+                    b.Navigation("Report");
+
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entites.Report", b =>
                 {
-                    b.HasOne("Entites.Post", "Post")
-                        .WithMany("reports")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entites.User", "User")
                         .WithMany("reports")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Post");
 
                     b.Navigation("User");
                 });
@@ -459,8 +462,11 @@ namespace TraineAPI.Migrations
             modelBuilder.Entity("Entites.Post", b =>
                 {
                     b.Navigation("comments");
+                });
 
-                    b.Navigation("reports");
+            modelBuilder.Entity("Entites.Report", b =>
+                {
+                    b.Navigation("posts");
                 });
 
             modelBuilder.Entity("Entites.Train", b =>

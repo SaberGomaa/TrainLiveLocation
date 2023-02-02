@@ -14,11 +14,14 @@ namespace Entites
         public string?  Descreption { get; set; }
         public DateTime Date { get; set; }
 
-        public ICollection<Post>? posts { get; set; }
 
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
         public virtual User? User { get; set; }
+
+        [ForeignKey(nameof(Post))]
+        public int PostId { get; set; }
+        public virtual Post? Post{ get; set; }
     }
 }

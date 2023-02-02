@@ -27,8 +27,6 @@ namespace Repository
         public void CreateAdmin(Admin admin) =>
             Create(admin);
 
-        
-
         public void DeleteAdmin(Admin admin)=>
             Delete(admin);
 

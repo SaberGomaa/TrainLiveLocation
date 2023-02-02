@@ -10,7 +10,6 @@ namespace Shared.DTOs
     public record AdminWithoutchiledForManipulationDto
     {
 
-
         [Required]
         public int Id { get; set; }
         [Required]
@@ -28,4 +27,5 @@ namespace Shared.DTOs
 
     public record AdminCreationDto : AdminWithoutchiledForManipulationDto;
 
+    public record AdminUpdateDto : AdminWithoutchiledForManipulationDto;
 }

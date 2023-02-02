@@ -45,7 +45,6 @@ namespace TraineAPI.Presentation.Controllers
                 if(AdminsDto == null)
                 {
                     return StatusCode(404, "Empty");
-
                 }
                 else
                 {
@@ -99,6 +98,34 @@ namespace TraineAPI.Presentation.Controllers
             _repository.Save();
             var adminToReturn = _mapper.Map<AdminDto>(entitAdminEntity);
             return CreatedAtRoute("GetAdmin", new { Id = adminToReturn.Id }, adminToReturn);
+        }
+
+        [HttpDelete("{Id:int}", Name = "DeleteAdmin")]
+        public IActionResult DeleteAdmin(int Id)
+        {
+            var admin = _repository.Admin.GetAdminById(Id);
+            ArgumentNullException.ThrowIfNull(admin);
+            _repository.Admin.DeleteAdmin(admin);
+            _repository.Save();
+            return Ok($"Admin with id {Id} deleted");
+        }
+
+        [HttpPut("{Id:int}", Name = "UpdateAdmin")]
+        public IActionResult UpdateAdmin([FromBody] AdminUpdateDto admin, int Id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest($"Admin with id  {Id}  already has deleted");
+            }
+            else
+            {
+                var SelectedAdmin = _repository.Admin.GetAdminById(Id);
+                ArgumentNullException.ThrowIfNull(SelectedAdmin);
+                var AdminEntity = _mapper.Map(admin, SelectedAdmin);
+                _repository.Admin.UpdateAdmin(AdminEntity);
+                _repository.Save();
+                return Ok($"the Admin with id {Id} has been updeted successfully");
+            }
         }
 
     }

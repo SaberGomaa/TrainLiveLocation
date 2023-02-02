@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,10 @@ namespace Contracts
 {
     public interface ICommentRepository
     {
+        IEnumerable<Comment> GetAllComments();
+        Comment GetCommentById(int Id);
+        void CreateComment(Comment comment);
+        void DeleteComment(Comment comment);
+        void UpdateComment(Comment comment);
     }
 }

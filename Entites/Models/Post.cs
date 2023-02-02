@@ -18,7 +18,7 @@ namespace Entites
 
         public ICollection<Comment>?comments { get; set; }
 
-
+        public ICollection<Report>?reports { get; set; }
         
 
        
@@ -32,9 +32,6 @@ namespace Entites
         public virtual User? User { get; set; }
 
 
-        [ForeignKey(nameof(Report))]
-        public int ReportId { get; set; }
-        public virtual Report? Report { get; set; }
 
     }
 }
