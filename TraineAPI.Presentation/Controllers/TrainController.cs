@@ -27,6 +27,24 @@ namespace TraineAPI.Presentation.Controllers
 
 
 
+        [HttpGet(Name = "GetAllConductor")]
+        public IActionResult GetAllConductor()
+        {
+            var Trains = _repository.Train.GetAllTrain();
+            var ConductorDTO = _mapper.Map<IEnumerable<ConductorDto>>(Trains);
+            return Ok(ConductorDTO);
+        }
+
+
+        [HttpGet(Name = "GetAllDriver")]
+        public IActionResult GetAllDriver()
+        {
+            var Trains = _repository.Train.GetAllTrain();
+            var DriverDTO = _mapper.Map<IEnumerable<DreiverDto>>(Trains);
+            return Ok(DriverDTO);
+        }
+
+
         [HttpGet(Name = "GetTrains")]
         public IActionResult GetTrains()
         {

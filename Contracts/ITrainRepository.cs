@@ -11,6 +11,7 @@ namespace Contracts
     {
         IEnumerable<Train> GetAllTrain();
         Train? GetTrainById(int trainID);
+
         void CreateTrain(Train train);
         void DeleteTrain(Train train);
         void UpdateTrain(Train train);

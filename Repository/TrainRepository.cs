@@ -28,7 +28,7 @@ namespace Repository
         {
             return FindAll().OrderBy(x=>x.Id).ToList();
         }
-
+       
         public Train? GetTrainById(int trainID)
         {
             return FindByCondition(c => c.Id.Equals(trainID)).SingleOrDefault();
@@ -38,5 +38,7 @@ namespace Repository
         {
             Update(train);
         }
+
+      
     }
 }
