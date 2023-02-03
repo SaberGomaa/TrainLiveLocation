@@ -14,5 +14,29 @@ namespace Repository
         {
         }
 
+        public void CreateTrain(Train train)
+        {
+            Create(train);
+        }
+
+        public void DeleteTrain(Train train)
+        {
+            Delete(train);
+        }
+
+        public IEnumerable<Train> GetAllTrain()
+        {
+            return FindAll().OrderBy(x=>x.Id).ToList();
+        }
+
+        public Train? GetTrainById(int trainID)
+        {
+            return FindByCondition(c => c.Id.Equals(trainID)).SingleOrDefault();
+        }
+
+        public void UpdateTrain(Train train)
+        {
+            Update(train);
+        }
     }
 }

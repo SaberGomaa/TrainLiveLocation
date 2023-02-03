@@ -29,6 +29,13 @@ namespace TraineAPI
             CreateMap<User, userDto>();
             CreateMap<UserCreationDto, User>();
             CreateMap<UserUpdateDto, User>();
+
+
+            //train
+           CreateMap<Train, TrainDto>();
+           CreateMap<TrainCreationDto,Train>();
+           CreateMap<TrainUpdatenDto, Train>();
+
         }
     }
 }
