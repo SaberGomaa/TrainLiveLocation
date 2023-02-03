@@ -3,6 +3,7 @@ using Entites;
 using Shared.DTOs;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
+
 namespace TraineAPI
 {
     public class MappingProfile : Profile
@@ -24,6 +25,11 @@ namespace TraineAPI
 
             CreateMap<CommentUpdateDto, Comment>();
 
+
+            //user
+            CreateMap<User, userDto>();
+            CreateMap<UserCreationDto, User>();
+            CreateMap<UserUpdateDto, User>();
         }
     }
 }

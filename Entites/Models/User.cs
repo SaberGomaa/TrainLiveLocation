@@ -18,7 +18,7 @@ namespace Entites
         public string? Jop { get; set; }
         public string? Address { get; set; }
         public string? Gender { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string? BirthDate { get; set; }
         public string? Role { get; set; }
 
         public ICollection<Post>? posts { get; set; }

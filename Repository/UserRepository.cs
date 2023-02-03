@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.ComponentModel.Design;
 
 namespace Repository
 {
@@ -12,6 +14,31 @@ namespace Repository
     {
         public UserRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
+        }
+
+        public void CreateUser(User user)
+        {
+            Create(user);
+        }
+
+        public void DeleteUser(User user)
+        {
+            Delete(user);
+        }
+
+        public IEnumerable<User> GetAllUser()
+        {
+            return FindAll().ToList();
+        }
+
+        public User? GetUserById(int userID)
+        {
+            return FindByCondition(c => c.Id.Equals(userID)).SingleOrDefault();
+        }
+
+        public void UpdateUser(User user)
+        {
+            Update(user);
         }
     }
 }
