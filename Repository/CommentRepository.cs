@@ -26,7 +26,7 @@ namespace Repository
             .ToList();
 
         public Comment GetCommentById(int Id)=>
-            FindByCondition(x => x.Equals(Id)).SingleOrDefault();
+            FindByCondition(x => x.Id.Equals(Id)).SingleOrDefault();
 
         public void UpdateComment(Comment comment)=>Update(comment);
     }

@@ -18,6 +18,7 @@ namespace TraineAPI
 
             // Comment
             CreateMap<Comment, CommentDto>();
+            CreateMap<CommentDto, Comment>();
 
             CreateMap<CommentCreationDto, Comment>();
 
