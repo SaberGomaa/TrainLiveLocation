@@ -11,6 +11,8 @@ namespace Contracts
     {
         IEnumerable<User> GetAllUser();
         User? GetUserById(int userID);
+        User? CheckEmail(string Email);
+        User? CheckPhone(string Phone);
         void CreateUser(User user);
         void DeleteUser(User user);
         void UpdateUser(User user);

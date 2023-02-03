@@ -62,13 +62,24 @@ namespace TraineAPI.Presentation.Controllers
 
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
+            
+            User s=_repository.User.CheckEmail(user.Email);
 
-            var UserEntity = _mapper.Map<User>(user);
-            _repository.User.CreateUser(UserEntity);
-            _repository.Save();
-            var UserToReturn = _mapper.Map<userDto>(UserEntity);
-            return CreatedAtRoute("GetUserById", new { id = UserToReturn.Id }, UserToReturn);
+            User x = _repository.User.CheckPhone(user.Phone);
+            if (s != null || x !=null)
+            {
+                return BadRequest("UserEmail or UserPhone has already been exist!");
+            }
+            
+            else
+            {
 
+                var UserEntity = _mapper.Map<User>(user);
+                _repository.User.CreateUser(UserEntity);
+                _repository.Save();
+                var UserToReturn = _mapper.Map<userDto>(UserEntity);
+                return CreatedAtRoute("GetUserById", new { id = UserToReturn.Id }, UserToReturn);
+            }
 
         }
 

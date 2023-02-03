@@ -16,6 +16,16 @@ namespace Repository
         {
         }
 
+        public User? CheckEmail(string Email)
+        {
+            return FindByCondition(x => x.Email == Email).SingleOrDefault();
+        }
+
+        public User? CheckPhone(string Phone)
+        {
+            return FindByCondition(x => x.Phone == Phone).SingleOrDefault();
+        }
+
         public void CreateUser(User user)
         {
             Create(user);
