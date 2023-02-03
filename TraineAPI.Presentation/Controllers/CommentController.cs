@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace TraineAPI.Presentation.Controllers
 {
@@ -53,8 +54,39 @@ namespace TraineAPI.Presentation.Controllers
             }
         }
 
+
+
+        [HttpGet("{id:int}", Name = "GetComment")]
+        public IActionResult GetComment(int id)
+        {
+            try
+            {
+
+                var comment = _repository.Comment.GetCommentById(id);
+
+                var CommentDTO = _mapper.Map<CommentDto>(comment);
+
+                if (CommentDTO == null)
+                {
+                    return StatusCode(404, "Empty");
+                }
+                else
+                {
+                    return Ok(CommentDTO);
+                }
+
+            }
+            catch
+            {
+                return StatusCode(500, "Internal server error");
+
+            }
+        }
+
+
+
         [HttpPost(Name ="createComment")]
-        public ActionResult CreateComment(Comment comment) 
+        public ActionResult CreateComment(CommentDto comment) 
         {
             ArgumentNullException.ThrowIfNull(comment);
 
@@ -70,6 +102,7 @@ namespace TraineAPI.Presentation.Controllers
 
         }
 
+
         [HttpDelete("{Id:int}", Name = "DeleteComment")]
         public IActionResult DeleteComment(int Id)
         {
@@ -80,30 +113,26 @@ namespace TraineAPI.Presentation.Controllers
             return Ok($"Comment with id {Id} deleted");
         }
 
-        [HttpPut("{Id:int}", Name = "Updatecomment")]
-        public IActionResult Updatecomment([FromBody] CommentUpdateDto comment, int Id)
+
+        [HttpPut("{Id:int}", Name = "UpdateComment")]
+        public IActionResult UpdateComment([FromBody] CommentUpdateDto comment, int Id)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest($"comment with id  {Id}  already has deleted");
-                }
-                else
-                {
-                    var SelectedComment = _repository.Comment.GetCommentById(Id);
-                    ArgumentNullException.ThrowIfNull(SelectedComment);
-                    var CommentEntity = _mapper.Map(comment, SelectedComment);
-                    _repository.Comment.UpdateComment(CommentEntity);
-                    _repository.Save();
-                    return Ok($"the Comment with id {Id} has been updeted successfully");
-                }
+                return BadRequest($"Comment with id  {Id}  already has deleted");
             }
-            catch
+            else
             {
-                return BadRequest("Error");
+                var SelectedComment = _repository.Comment.GetCommentById(Id);
+                ArgumentNullException.ThrowIfNull(SelectedComment);
+                var CommentEntity = _mapper.Map(comment, SelectedComment);
+                _repository.Comment.UpdateComment(CommentEntity);
+                _repository.Save();
+                return Ok($"the Comment with id {Id} has been updeted successfully");
             }
         }
+
+      
 
 
     }
