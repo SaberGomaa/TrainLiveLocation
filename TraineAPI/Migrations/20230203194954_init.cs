@@ -81,7 +81,7 @@ namespace TraineAPI.Migrations
                     Jop = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BirthDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrainId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -96,27 +96,6 @@ namespace TraineAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "reports",
-                columns: table => new
-                {
-                    ReportId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descreption = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_reports", x => x.ReportId);
-                    table.ForeignKey(
-                        name: "FK_reports_users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "posts",
                 columns: table => new
                 {
@@ -127,8 +106,7 @@ namespace TraineAPI.Migrations
                     Critical = table.Column<bool>(type: "bit", nullable: false),
                     Img = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AdminId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    ReportId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -138,12 +116,6 @@ namespace TraineAPI.Migrations
                         column: x => x.AdminId,
                         principalTable: "admins",
                         principalColumn: "AdminId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_posts_reports_ReportId",
-                        column: x => x.ReportId,
-                        principalTable: "reports",
-                        principalColumn: "ReportId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_posts_users_UserId",
@@ -160,6 +132,7 @@ namespace TraineAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Img = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     PostId = table.Column<int>(type: "int", nullable: false),
                     AdminId = table.Column<int>(type: "int", nullable: false)
@@ -185,6 +158,34 @@ namespace TraineAPI.Migrations
                         principalTable: "users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "reports",
+                columns: table => new
+                {
+                    ReportId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descreption = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    PostId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_reports", x => x.ReportId);
+                    table.ForeignKey(
+                        name: "FK_reports_posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "posts",
+                        principalColumn: "PostId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_reports_users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,14 +264,14 @@ namespace TraineAPI.Migrations
                 column: "AdminId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_posts_ReportId",
-                table: "posts",
-                column: "ReportId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_posts_UserId",
                 table: "posts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_reports_PostId",
+                table: "reports",
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_reports_UserId",
@@ -321,6 +322,9 @@ namespace TraineAPI.Migrations
                 name: "comments");
 
             migrationBuilder.DropTable(
+                name: "reports");
+
+            migrationBuilder.DropTable(
                 name: "stations");
 
             migrationBuilder.DropTable(
@@ -328,9 +332,6 @@ namespace TraineAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "admins");
-
-            migrationBuilder.DropTable(
-                name: "reports");
 
             migrationBuilder.DropTable(
                 name: "users");
