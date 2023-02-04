@@ -107,12 +107,15 @@ namespace TraineAPI.Migrations
                     b.Property<double>("Cost")
                         .HasColumnType("float");
 
-                    b.Property<int>("TicketId")
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("payments");
                 });
@@ -363,13 +366,13 @@ namespace TraineAPI.Migrations
 
             modelBuilder.Entity("Entites.Payment", b =>
                 {
-                    b.HasOne("Entites.Ticket", "Ticket")
+                    b.HasOne("Entites.User", "User")
                         .WithMany()
-                        .HasForeignKey("TicketId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Ticket");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entites.Post", b =>

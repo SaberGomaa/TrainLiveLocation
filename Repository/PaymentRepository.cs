@@ -12,6 +12,22 @@ namespace Repository
     {
         public PaymentRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
+
         }
+
+        public void CreatePayment(Payment payment) =>
+            Create(payment);
+        public void DeletePayment(Payment payment) =>
+            Delete(payment);
+        public IEnumerable<Payment> GetAllPayments()=>
+            FindAll()
+            .OrderBy(x => x.Date)
+            .ToList();
+
+        public Payment GetPaymentById(int Id) =>
+            FindByCondition(c => c.Id.Equals(Id)).SingleOrDefault();
+
+        public void UpdatePayment(Payment payment)=>
+            Update(payment);
     }
 }

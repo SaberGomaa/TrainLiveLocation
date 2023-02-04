@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entites;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,10 @@ namespace Contracts
 {
     public interface IPaymentRepository
     {
+        IEnumerable<Payment> GetAllPayments();
+        Payment GetPaymentById(int Id);
+        void CreatePayment(Payment payment);
+        void DeletePayment(Payment payment);
+        void UpdatePayment(Payment payment);
     }
 }

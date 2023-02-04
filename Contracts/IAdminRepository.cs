@@ -12,6 +12,7 @@ namespace Contracts
     {
             IEnumerable<Admin> GetAllAdmins();
             Admin GetAdminById(int Id);
+            Admin LoginForAdmin(string phone, string password);
             void CreateAdmin(Admin admin);
             void DeleteAdmin(Admin admin);
             void UpdateAdmin(Admin admin);

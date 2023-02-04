@@ -9,6 +9,7 @@ namespace TraineAPI
     public class MappingProfile : Profile
     {
         public MappingProfile() {
+
             // Admin
             CreateMap<Admin, AdminDto>();
 
@@ -19,11 +20,21 @@ namespace TraineAPI
 
             // Comment
             CreateMap<Comment, CommentDto>();
+
             CreateMap<CommentDto, Comment>();
 
             CreateMap<CommentCreationDto, Comment>();
 
             CreateMap<CommentUpdateDto, Comment>();
+
+            // Payment
+            CreateMap<Payment, PaymentDto>();
+
+            CreateMap<PaymentDto, Payment>();
+
+            CreateMap<PaymentCreationDto, Payment>();
+
+            CreateMap<PaymentUpdateDto, Payment>();
 
 
             //user

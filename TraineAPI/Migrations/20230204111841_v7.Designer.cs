@@ -12,8 +12,8 @@ using Repository;
 namespace TraineAPI.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20230203212729_v5")]
-    partial class v5
+    [Migration("20230204111841_v7")]
+    partial class v7
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,7 +78,7 @@ namespace TraineAPI.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -110,12 +110,15 @@ namespace TraineAPI.Migrations
                     b.Property<double>("Cost")
                         .HasColumnType("float");
 
-                    b.Property<int>("TicketId")
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TicketId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("payments");
                 });
@@ -305,8 +308,8 @@ namespace TraineAPI.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("BirthDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -353,7 +356,9 @@ namespace TraineAPI.Migrations
 
                     b.HasOne("Entites.User", "User")
                         .WithMany("comments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Admin");
 
@@ -364,13 +369,13 @@ namespace TraineAPI.Migrations
 
             modelBuilder.Entity("Entites.Payment", b =>
                 {
-                    b.HasOne("Entites.Ticket", "Ticket")
+                    b.HasOne("Entites.User", "User")
                         .WithMany()
-                        .HasForeignKey("TicketId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Ticket");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entites.Post", b =>

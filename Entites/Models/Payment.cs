@@ -15,9 +15,10 @@ namespace Entites
         public int CardNumber { get; set; }
         public double Cost { get; set; }
 
+        public DateTime?  Date { get; set; } = DateTime.Now;
 
-        [ForeignKey(nameof(Ticket))]
-        public int TicketId { get; set; }
-        public virtual Ticket? Ticket { get; set; }
+        [ForeignKey(nameof(User))]
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
     }
 }

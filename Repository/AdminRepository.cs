@@ -33,5 +33,7 @@ namespace Repository
         public void UpdateAdmin(Admin admin) =>
             Update(admin);
 
+        public Admin LoginForAdmin(string phone, string password) =>
+            FindByCondition(c => c.Password.Equals(password) && c.Phone.Equals(phone)).SingleOrDefault();
     }
 }
