@@ -48,6 +48,7 @@ namespace TraineAPI
 
             //user
             CreateMap<User, userDto>();
+            CreateMap<User, userloginDTO>();
             CreateMap<UserCreationDto, User>();
             CreateMap<UserUpdateDto, User>();
 

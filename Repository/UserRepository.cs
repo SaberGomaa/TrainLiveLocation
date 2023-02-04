@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.ComponentModel.Design;
+using System.Numerics;
 
 namespace Repository
 {
@@ -21,6 +22,16 @@ namespace Repository
             return FindByCondition(x => x.Email == Email).SingleOrDefault();
         }
 
+        
+
+        public User? GetUserByEmail(string Email)
+        {
+            return FindByCondition(c => c.Email.Equals(Email)).SingleOrDefault();
+        }
+        public User? CheckPassword(string Password)
+        {
+            return FindByCondition(x => x.Password == Password).SingleOrDefault();
+        }
         public User? CheckPhone(string Phone)
         {
             return FindByCondition(x => x.Phone == Phone).SingleOrDefault();
@@ -41,6 +52,7 @@ namespace Repository
             return FindAll().ToList();
         }
 
+
         public User? GetUserById(int userID)
         {
             return FindByCondition(c => c.Id.Equals(userID)).SingleOrDefault();
@@ -50,5 +62,7 @@ namespace Repository
         {
             Update(user);
         }
+
+        
     }
 }

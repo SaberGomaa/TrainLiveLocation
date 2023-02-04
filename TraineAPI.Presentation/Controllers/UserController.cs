@@ -54,6 +54,25 @@ namespace TraineAPI.Presentation.Controllers
             }
         }
 
+        [HttpGet(Name = "UserLogin")]
+        public IActionResult UserLogin(string Email,string Password)
+        {
+           
+          
+            User x = _repository.User.GetUserByEmail(Email);
+            if (x == null)
+                return BadRequest("Bassword or Email is inCorrect!");
+            if ( Password!=x.Password)
+            {
+                return BadRequest("Bassword or Email is inCorrect!");
+            }
+            else
+            {
+                var c=_mapper.Map<userloginDTO>(x);
+                return Ok($"You are login welcome {x.Name}" );
+            }
+
+        }
 
         [HttpPost(Name = "CreateUser")]
         public IActionResult CreateUser([FromBody] UserCreationDto user)
