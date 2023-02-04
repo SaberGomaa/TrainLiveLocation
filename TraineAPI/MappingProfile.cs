@@ -39,6 +39,12 @@ namespace TraineAPI
             CreateMap<TrainCreationDto,Train>();
             CreateMap<TrainUpdatenDto, Train>();
 
+            //station
+            CreateMap<Station, StationDto>();
+            CreateMap<Station, StatioForOneTrainDto>();
+            CreateMap<StationForCreateDto, Station>();
+            CreateMap<StationForUpdateDto, Station>();
+
         }
     }
 }
