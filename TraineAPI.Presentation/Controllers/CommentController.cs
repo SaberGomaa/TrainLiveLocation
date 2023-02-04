@@ -98,7 +98,7 @@ namespace TraineAPI.Presentation.Controllers
 
             _repository.Save();
             var ReturnedComment = _mapper.Map<CommentDto>(commentEntity);
-            return CreatedAtRoute("GetAdmin", new { Id = ReturnedComment.Id }, ReturnedComment);
+            return CreatedAtRoute("GetComment", new { Id = ReturnedComment.Id }, ReturnedComment);
 
         }
 

@@ -13,7 +13,7 @@ using Entites;
 namespace TraineAPI.Presentation.Controllers
 {
     [Route("api/Admin/[action]")]
-   
+
     [ApiController]
     //(ControllerBase)which provides all necessary behavior for the derived class
     public class AdminController : ControllerBase
@@ -21,13 +21,13 @@ namespace TraineAPI.Presentation.Controllers
         private readonly IRepositoryManegar _repository;
         private readonly IMapper _mapper;
 
-        public AdminController (IRepositoryManegar repository , IMapper mapper)
+        public AdminController(IRepositoryManegar repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        [HttpGet (Name = "Admins")]
+        [HttpGet(Name = "Admins")]
         public IActionResult GetAdmins()
         {
             try
@@ -40,9 +40,9 @@ namespace TraineAPI.Presentation.Controllers
 
                 var Admins = _repository.Admin.GetAllAdmins();
 
-                var AdminsDto = _mapper.Map<IEnumerable<AdminDto>> (Admins);
+                var AdminsDto = _mapper.Map<IEnumerable<AdminDto>>(Admins);
 
-                if(AdminsDto == null)
+                if (AdminsDto == null)
                 {
                     return StatusCode(404, "Empty");
                 }
@@ -56,6 +56,35 @@ namespace TraineAPI.Presentation.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [Route("{phone}/{password}")]
+        [HttpGet]
+        public IActionResult GetLoginAdmin(string phone , string password)
+        {
+            try
+            {
+
+                var admin = _repository.Admin.LoginForAdmin(phone , password);
+
+                var adminDTO = _mapper.Map<AdminDto>(admin);
+                ArgumentNullException.ThrowIfNull(adminDTO);
+                if (adminDTO == null)
+                {
+                    return StatusCode(404, "Not Found");
+                }
+                else
+                {
+                    return Ok(adminDTO);
+                }
+
+            }
+            catch
+            {
+                return StatusCode(500, "Internal server error");
+
+            }
+        }
+
 
         [HttpGet("{id:int}", Name = "GetAdmin")]
         public IActionResult GetAdmin(int id)
