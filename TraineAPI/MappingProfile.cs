@@ -36,6 +36,15 @@ namespace TraineAPI
 
             CreateMap<PaymentUpdateDto, Payment>();
 
+            // Post
+            CreateMap<Post, PostDto>();
+
+            CreateMap<PostDto, Post>();
+
+            CreateMap<PostCreationDto, Post>();
+
+            CreateMap<PostUpdateDto, Post>();
+
 
             //user
             CreateMap<User, userDto>();

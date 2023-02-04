@@ -13,5 +13,20 @@ namespace Repository
         public PostRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
+
+        public void CreatePost(Post post)=>
+            Create(post);
+        public void DeletePost(Post post)=>
+            Delete(post);
+
+        public IEnumerable<Post> GetAllPosts()=>
+            FindAll()
+            .OrderBy(x=>x.Id)
+            .ToList();
+        public Post GetPostById(int Id) =>
+            FindByCondition(c => c.Id.Equals(Id)).SingleOrDefault();
+
+        public void UpdatePost(Post post)=>
+            Update(post);
     }
 }
