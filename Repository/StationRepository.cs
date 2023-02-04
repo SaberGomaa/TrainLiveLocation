@@ -14,6 +14,11 @@ namespace Repository
         {
         }
 
+        public Station? CheckTrainExist(int TrainId)
+        {
+            return FindByCondition(x => x.TrainId.Equals(TrainId)).FirstOrDefault();
+        }
+
         public void CreateStation(Station station)
         {
             Create(station);
@@ -36,7 +41,7 @@ namespace Repository
 
         public IEnumerable<Station> GetStationsForOneTrain(int TrainId)
         {
-            return FindByCondition(x => x.Id.Equals(TrainId)).ToList();
+            return FindByCondition(x => x.TrainId.Equals(TrainId)).ToList();
         }
 
         public void UpdateStation(Station station)
