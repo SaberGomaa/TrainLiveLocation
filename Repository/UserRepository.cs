@@ -19,14 +19,13 @@ namespace Repository
 
         public User? CheckEmail(string Email)
         {
-            return FindByCondition(x => x.Email == Email).SingleOrDefault();
+            return FindByCondition(x => x.Email == Email).FirstOrDefault();
         }
 
-        
 
-        public User? GetUserByEmail(string Email)
+        public User? GetUserByPhone(string Phone)
         {
-            return FindByCondition(c => c.Email.Equals(Email)).SingleOrDefault();
+            return FindByCondition(c => c.Phone.Equals(Phone)).SingleOrDefault();
         }
         public User? CheckPassword(string Password)
         {

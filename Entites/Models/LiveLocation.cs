@@ -5,22 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entites
+namespace Entites.Models
 {
-    public class Station
+    public class LiveLocation
     {
-        [Column("StationId")]
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? NextStation { get; set; }
-        public string? Description { get; set; }
-
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+        public DateTime DateOfShareLoaction { get; set; }
+
         [ForeignKey(nameof(Train))]
         public int TrainId { get; set; }
-        public virtual Train? Train { get; set; }
+        [ForeignKey(nameof(User))]
+        public int UserId { get; set; }
 
-        public ICollection<User> Users { get; set; }
+        public Train Train { get; set; }
+        public User User { get; set; }
+
     }
 }

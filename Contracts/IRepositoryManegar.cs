@@ -17,6 +17,9 @@ namespace Contracts
         ITeketRepository Teket { get; }
         ITrainRepository Train { get; }
         IUserRepository User { get; }
+        ILiveLocationRepository LiveLocation { get; }
+
+        InewsRepository news { get; }
 
         void Save();
 

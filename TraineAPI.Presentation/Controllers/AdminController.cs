@@ -91,7 +91,6 @@ namespace TraineAPI.Presentation.Controllers
         {
             try
             {
-
                 var admin = _repository.Admin.GetAdminById(id);
 
                 var adminDTO = _mapper.Map<AdminDto>(admin);

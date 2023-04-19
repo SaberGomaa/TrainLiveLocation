@@ -13,7 +13,10 @@ namespace Entites
         public int Id { get; set; }
         public string? Content { get; set; }
         public string? Img { get; set; }
-        public DateTime? Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
+
+        public string UserName { get; set; }
+        public string UserPhone { get; set; }
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }

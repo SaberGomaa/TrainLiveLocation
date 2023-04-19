@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entites.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -26,14 +27,18 @@ namespace Entites
         public ICollection<Report>? reports { get; set; }
         public ICollection<Ticket>? tickets { get; set; }
 
+        public ICollection<LiveLocation> liveLocations { get; set; }
 
 
         [ForeignKey(nameof(Train))]
         public int? TrainId { get; set; }
         public virtual Train? Train { get; set; }
+        [ForeignKey(nameof(Station))]
+        public int? StationId { get; set; }
+        public virtual Station? Station { get; set; }
 
 
-       
-      
+
+
     }
 }

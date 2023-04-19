@@ -55,21 +55,21 @@ namespace TraineAPI.Presentation.Controllers
         }
 
         [HttpGet(Name = "UserLogin")]
-        public IActionResult UserLogin(string Email,string Password)
+        public IActionResult UserLogin(string Phone,string Password)
         {
            
           
-            User x = _repository.User.GetUserByEmail(Email);
+            User x = _repository.User.GetUserByPhone(Phone);
             if (x == null)
-                return BadRequest("Bassword or Email is inCorrect!");
+                return BadRequest("Password or Phone is inCorrect!");
             if ( Password!=x.Password)
             {
-                return BadRequest("Bassword or Email is inCorrect!");
+                return BadRequest("Password or Phone is inCorrect!");
             }
             else
             {
-                var c=_mapper.Map<userloginDTO>(x);
-                return Ok($"You are login welcome {x.Name}" );
+                var c=_mapper.Map<userDto>(x);
+                return Ok(c);
             }
 
         }

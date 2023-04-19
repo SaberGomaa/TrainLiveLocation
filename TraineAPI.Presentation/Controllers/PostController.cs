@@ -36,6 +36,7 @@ namespace TraineAPI.Presentation.Controllers
 
                 var postDtos = _mapper.Map<IEnumerable<PostDto>>(posts);
 
+
                 if (postDtos == null)
                 {
                     return StatusCode(404, "Empty");
@@ -78,7 +79,7 @@ namespace TraineAPI.Presentation.Controllers
 
 
         [HttpPost(Name = "createPost")]
-        public ActionResult CreatePost(PostDto post)
+        public ActionResult CreatePost([FromBody] PostCreationDto post)
         {
             ArgumentNullException.ThrowIfNull(post);
 
@@ -89,8 +90,8 @@ namespace TraineAPI.Presentation.Controllers
             _repository.Post.CreatePost(postEntity);
 
             _repository.Save();
-            var ReturnedPost= _mapper.Map<PostDto>(post);
-            return CreatedAtRoute("GetPost", new { Id = ReturnedPost.id }, ReturnedPost);
+            var ReturnedPost= _mapper.Map<PostDto>(postEntity);
+            return CreatedAtRoute("GetPost", new { Id = ReturnedPost.Id }, ReturnedPost);
 
         }
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entites;
+using Entites.Models;
 using Shared.DTOs;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -21,12 +22,34 @@ namespace TraineAPI
             // Comment
             CreateMap<Comment, CommentDto>();
 
+            CreateMap<Comment, ReturnedComment>();
+
             CreateMap<CommentDto, Comment>();
 
             CreateMap<CommentCreationDto, Comment>();
 
             CreateMap<CommentUpdateDto, Comment>();
 
+
+            // LiveLocation
+            CreateMap<LiveLocation, LiveLocationDto>();
+
+            CreateMap<LiveLocation, FilterLocationDto>();
+            CreateMap<LiveLocation, LatitudeDto>();
+
+            CreateMap<LiveLocation, LongitudeDto>();
+
+            CreateMap<LiveLocationDto, LiveLocation>();
+
+            CreateMap<LiveLocationCreationDto, LiveLocation>();
+
+            CreateMap<LiveLocationUpdateDto, LiveLocation>();
+
+            //news
+            
+            CreateMap<News, NewsDto>();
+            CreateMap<NewsCreateDto, News>();
+            CreateMap<NewsUpdateDto, News>();
             // Payment
             CreateMap<Payment, PaymentDto>();
 
@@ -42,6 +65,7 @@ namespace TraineAPI
             CreateMap<PostDto, Post>();
 
             CreateMap<PostCreationDto, Post>();
+            CreateMap<PostCreationDto, PostDto>();
 
             CreateMap<PostUpdateDto, Post>();
 

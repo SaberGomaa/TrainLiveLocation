@@ -1,5 +1,7 @@
 ﻿using Entites;
+using Entites.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -20,7 +22,8 @@ namespace Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.ApplyConfiguration(new TrainConfigration());
+            modelBuilder.ApplyConfiguration(new StationConfigration());
         }
         public DbSet<Admin> admins { get; set; }
         public DbSet<User> users { get; set; }
@@ -31,6 +34,9 @@ namespace Repository
         public DbSet<Station> stations { get; set; }
         public DbSet<Ticket> tickets { get; set; }
         public DbSet<Train> trains { get; set; }
-        
+        public DbSet<LiveLocation> liveLocations { get; set; }
+
+        public DbSet<News> news { get; set; }
+
     }
 }

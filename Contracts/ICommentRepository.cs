@@ -12,6 +12,7 @@ namespace Contracts
     {
         IEnumerable<Comment> GetAllComments();
         Comment GetCommentById(int Id);
+        IEnumerable<Comment> GetCommentsByPostId(int Id);
         void CreateComment(Comment comment);
         void DeleteComment(Comment comment);
         void UpdateComment(Comment comment);

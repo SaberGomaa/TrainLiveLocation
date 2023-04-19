@@ -28,6 +28,9 @@ namespace Repository
         public Comment GetCommentById(int Id)=>
             FindByCondition(x => x.Id.Equals(Id)).SingleOrDefault();
 
+        public IEnumerable<Comment> GetCommentsByPostId(int Id)=>
+            FindByCondition(x=>x.PostId.Equals(Id)).OrderBy(c=>c.Date).ToList();
+
         public void UpdateComment(Comment comment)=>Update(comment);
     }
 }

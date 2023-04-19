@@ -10,7 +10,7 @@ namespace Contracts
     public interface IUserRepository
     {
         IEnumerable<User> GetAllUser();
-        User? GetUserByEmail(string Email);
+        User? GetUserByPhone(string Phone);
         User? GetUserById(int userID);
         User? CheckEmail(string Email);
         User? CheckPassword( string Password);

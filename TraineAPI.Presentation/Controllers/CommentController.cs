@@ -85,6 +85,34 @@ namespace TraineAPI.Presentation.Controllers
 
 
 
+        [HttpGet("{PostId:int}", Name = "GetCommentsForPost")]
+        public IActionResult GetCommentsForPost(int PostId)
+        {
+            try
+            {
+
+                var comment = _repository.Comment.GetCommentsByPostId(PostId);
+
+                var CommentDTO = _mapper.Map<IEnumerable<ReturnedComment>>(comment);
+
+                if (CommentDTO == null)
+                {
+                    return StatusCode(404, "Empty");
+                }
+                else
+                {
+                    return Ok(CommentDTO);
+                }
+
+            }
+            catch
+            {
+                return StatusCode(500, "Internal server error");
+
+            }
+        }
+
+
         [HttpPost(Name ="createComment")]
         public ActionResult CreateComment(CommentDto comment) 
         {
@@ -97,7 +125,7 @@ namespace TraineAPI.Presentation.Controllers
             _repository.Comment.CreateComment(commentEntity);
 
             _repository.Save();
-            var ReturnedComment = _mapper.Map<CommentDto>(commentEntity);
+            var ReturnedComment = _mapper.Map<ReturnedComment>(commentEntity);
             return CreatedAtRoute("GetComment", new { Id = ReturnedComment.Id }, ReturnedComment);
 
         }

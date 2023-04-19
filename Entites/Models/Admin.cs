@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entites.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Entites
         public string? Phone { get; set; }
         public string? Password { get; set; }
         public string? AdminDegree { get; set; }
+
+        public ICollection<News>? News { get; set; }
 
         public ICollection<Comment>? comments { get; set; }
         public ICollection<Post>? posts { get; set; }

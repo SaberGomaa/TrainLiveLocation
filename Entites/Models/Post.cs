@@ -16,6 +16,11 @@ namespace Entites
         public bool Critical { get; set; }
         public string? Img { get; set; }
 
+        public DateTime date { get; set; } = DateTime.Now;
+        public string ImgId { get; set; }
+        public string UserName { get; set; }
+        public string UserPhone { get; set; }
+
         public ICollection<Comment>?comments { get; set; }
 
         public ICollection<Report>?reports { get; set; }
@@ -30,8 +35,6 @@ namespace Entites
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
         public virtual User? User { get; set; }
-
-
 
     }
 }
