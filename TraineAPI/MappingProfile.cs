@@ -50,6 +50,14 @@ namespace TraineAPI
             CreateMap<News, NewsDto>();
             CreateMap<NewsCreateDto, News>();
             CreateMap<NewsUpdateDto, News>();
+
+            //ticket
+            CreateMap<Ticket, TicketDto>();
+            CreateMap<Ticket, CheckIfScannOrNotDto>();
+            CreateMap<CreateTicketDto, Ticket>();
+            CreateMap<UpdateTicketDto, Ticket>();
+
+
             // Payment
             CreateMap<Payment, PaymentDto>();
 

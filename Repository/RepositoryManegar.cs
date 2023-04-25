@@ -17,7 +17,7 @@ namespace Repository
         private readonly Lazy<IPostRepository> _PostRepository;
         private readonly Lazy<IReportRepository> _ReportRepository;
         private readonly Lazy<IStationRepository> _StationRepository;
-        private readonly Lazy<ITeketRepository> _TeketRepository;
+        private readonly Lazy<ITicketRepository> _TeketRepository;
         private readonly Lazy<ITrainRepository> _TrainRepository;
         private readonly Lazy<IUserRepository> _UserRepository;
         private readonly Lazy<ILiveLocationRepository> _LiveLocationRepository;
@@ -32,7 +32,7 @@ namespace Repository
             _PostRepository = new Lazy<IPostRepository>(() => new PostRepository(repositoryContext));
             _ReportRepository = new Lazy<IReportRepository>(() => new ReportRepository(repositoryContext));
             _StationRepository = new Lazy<IStationRepository>(() => new StationRepository(repositoryContext));
-            _TeketRepository = new Lazy<ITeketRepository>(() => new TeketRepository(repositoryContext));
+            _TeketRepository = new Lazy<ITicketRepository>(() => new TicketRepository(repositoryContext));
             _TrainRepository = new Lazy<ITrainRepository>(() => new TrainRepository(repositoryContext));
             _UserRepository = new Lazy<IUserRepository>(() => new UserRepository(repositoryContext));
             _LiveLocationRepository = new Lazy<ILiveLocationRepository>(() => new LiveLocationRepository(repositoryContext));
@@ -52,7 +52,7 @@ namespace Repository
 
         public IStationRepository Station => _StationRepository.Value;
 
-        public ITeketRepository Teket => _TeketRepository.Value;
+        public ITicketRepository Ticket => _TeketRepository.Value;
 
         public ITrainRepository Train => _TrainRepository.Value;
 

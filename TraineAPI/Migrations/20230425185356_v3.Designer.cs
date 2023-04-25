@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace TraineAPI.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20230425185356_v3")]
+    partial class v3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -863,9 +866,6 @@ namespace TraineAPI.Migrations
                     b.Property<string>("TrainDegree")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrainId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TrainNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -873,8 +873,6 @@ namespace TraineAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TrainId");
 
                     b.HasIndex("UserId");
 
@@ -1137,19 +1135,11 @@ namespace TraineAPI.Migrations
 
             modelBuilder.Entity("Entites.Ticket", b =>
                 {
-                    b.HasOne("Entites.Train", "Train")
-                        .WithMany("tickets")
-                        .HasForeignKey("TrainId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Entites.User", "User")
                         .WithMany("tickets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Train");
 
                     b.Navigation("User");
                 });
@@ -1195,8 +1185,6 @@ namespace TraineAPI.Migrations
                     b.Navigation("liveLocations");
 
                     b.Navigation("stations");
-
-                    b.Navigation("tickets");
 
                     b.Navigation("users");
                 });

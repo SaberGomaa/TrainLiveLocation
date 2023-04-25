@@ -25,10 +25,13 @@ namespace Entites
         public int UserId { get; set; }
         public virtual User? User { get; set; }
 
+        [ForeignKey(nameof(Train))]
+        public int TrainId { get; set; }
+        public virtual Train? Train { get; set; }
 
-        [ForeignKey(nameof(payment))]
-        public int PaymentId { get; set; }
-        public virtual Payment? payment { get; set; }
+        //[ForeignKey(nameof(payment))]
+        //public int PaymentId { get; set; }
+        //public virtual Payment? payment { get; set; }
 
 
     }

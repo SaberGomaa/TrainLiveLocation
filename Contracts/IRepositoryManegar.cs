@@ -14,7 +14,7 @@ namespace Contracts
         IPostRepository Post { get; }
         IReportRepository Report { get; }
         IStationRepository Station { get; }
-        ITeketRepository Teket { get; }
+        ITicketRepository Ticket { get; }
         ITrainRepository Train { get; }
         IUserRepository User { get; }
         ILiveLocationRepository LiveLocation { get; }
