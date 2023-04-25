@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Contracts;
+using Entites;
 using Microsoft.AspNetCore.Mvc;
+using Shared.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +27,15 @@ namespace TraineAPI.Presentation.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet(Name = "UserInTrain")]
-        public ActionResult UserInTrain(int TrainId)
+        [HttpGet(Name = "DoctorsInTrain")]
+        public IActionResult DoctorsInTrain(int TrainId)
         {
-            var users = _repository.Ticket.GetAllTikets().Where(x => x.TrainId == TrainId).Select(x => new { UserId = x.UserId , TrainId = x.TrainId , ArrivalStation = x.ArrivalStation , TakeOffStation = x.TakeOffStation });
-            return Ok(users);
+            var usersInTrain = _repository.Ticket.GetAllTikets().Where(x => x.TrainId.Equals(TrainId) && x.UserJop=="Doctor").Select(x=> new {TicketId = x.Id ,userId = x.UserId ,TakeOffStation = x.TakeOffStation ,ArrivalStation= x.ArrivalStation    });
+
+            return Ok(usersInTrain);
         }
+
+      
 
     }
     

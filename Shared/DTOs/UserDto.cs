@@ -55,6 +55,7 @@ namespace Shared.DTOs
 
     public record userDto(int Id, string Name, string Email, string Phone, string Password, string Jop, string Address, string Gender, string BirthDate, string Role, int? StationId);
     public record userloginDTO(string Name);
+    public record DoctorDTO(int Id, string Name, string Email, string Phone,  int? StationId);
     public record UserCreationDto : UserForManipulationDto;
     public record UserUpdateDto : UserForManipulationDto;
 }

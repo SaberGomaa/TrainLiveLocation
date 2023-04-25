@@ -61,12 +61,16 @@ namespace TraineAPI.Presentation.Controllers
         {
             ArgumentNullException.ThrowIfNull(ticket);
 
+
+            
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
-
+            var user = _repository.User.GetUserById(ticket.UserId);
 
             var TicketEntity = _mapper.Map<Ticket>(ticket);
+            TicketEntity.UserJop = user.Jop;
+
             _repository.Ticket.CreateTicket(TicketEntity);
             _repository.Save();
             var TicketToReturn = _mapper.Map<TicketDto>(TicketEntity);

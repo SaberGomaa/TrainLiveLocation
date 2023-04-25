@@ -34,8 +34,8 @@ namespace Shared.DTOs
         [Required(ErrorMessage = "TrainDegree is a required field.")]
         public string? TrainDegree { get; set; }
 
-        public int? UserId { get; set; }
-        public int? TrainId { get; set; }
+        public int UserId { get; set; }
+        public int TrainId { get; set; }
         //public int? PaymentId { get; set; }
     }
 

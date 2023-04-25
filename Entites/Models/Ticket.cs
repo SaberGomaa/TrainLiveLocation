@@ -19,7 +19,7 @@ namespace Entites
         public bool ScanedOrNot { get; set; }
         public string? TrainDegree { get; set; }
 
-
+        public string? UserJop { get; set; }
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
