@@ -30,12 +30,10 @@ namespace TraineAPI.Presentation.Controllers
         [HttpGet(Name = "DoctorsInTrain")]
         public IActionResult DoctorsInTrain(int TrainId)
         {
-            var usersInTrain = _repository.Ticket.GetAllTikets().Where(x => x.TrainId.Equals(TrainId) && x.UserJop=="Doctor").Select(x=> new {TicketId = x.Id ,userId = x.UserId ,TakeOffStation = x.TakeOffStation ,ArrivalStation= x.ArrivalStation    });
+            var usersInTrain = _repository.Ticket.GetAllTikets().Where(x => x.TrainId.Equals(TrainId) && x.UserJop=="Doctor").Select(x=> new {TicketId = x.Id ,userId = x.UserId , UserName = x.UserName , UserEmail = x.UserEmail , UserPhone = x.UserPhone ,TakeOffStation = x.TakeOffStation ,ArrivalStation= x.ArrivalStation    });
 
             return Ok(usersInTrain);
         }
-
-      
 
     }
     

@@ -70,6 +70,10 @@ namespace TraineAPI.Presentation.Controllers
 
             var TicketEntity = _mapper.Map<Ticket>(ticket);
             TicketEntity.UserJop = user.Jop;
+            TicketEntity.UserName = user.Name;
+            TicketEntity.UserPhone = user.Phone;
+            TicketEntity.UserEmail = user.Email;
+
 
             _repository.Ticket.CreateTicket(TicketEntity);
             _repository.Save();
