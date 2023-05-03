@@ -56,24 +56,23 @@ namespace TraineAPI.Presentation.Controllers
 
 
 
+
         [HttpPost(Name = "CreateTicket")]
         public IActionResult CreateTicket([FromBody] CreateTicketDto ticket)
         {
             ArgumentNullException.ThrowIfNull(ticket);
-
 
             
             if (!ModelState.IsValid)
                 return UnprocessableEntity(ModelState);
 
             var user = _repository.User.GetUserById(ticket.UserId);
-
+            
             var TicketEntity = _mapper.Map<Ticket>(ticket);
             TicketEntity.UserJop = user.Jop;
             TicketEntity.UserName = user.Name;
             TicketEntity.UserPhone = user.Phone;
             TicketEntity.UserEmail = user.Email;
-
 
             _repository.Ticket.CreateTicket(TicketEntity);
             _repository.Save();
@@ -94,7 +93,6 @@ namespace TraineAPI.Presentation.Controllers
             _repository.Save();
             return Ok($"the Ticket with id {ticketId} has been Scanned successfully");
         }
-
 
         [HttpGet(Name = "CheckIfScannOrNot")]
         public IActionResult CheckIfScannOrNot(int ticketId)
@@ -119,11 +117,19 @@ namespace TraineAPI.Presentation.Controllers
         [HttpDelete(Name = "DeleteTicket")]
         public IActionResult DeleteTicket(int Id)
         {
-            var ticket = _repository.Ticket.GetTicketById(Id);
-            ArgumentNullException.ThrowIfNull(ticket);
-            _repository.Ticket.DeleteTikcket(ticket);
-            _repository.Save();
-            return Ok($"Ticket with id {Id} has been deleted");
+            try
+            {
+                var ticket = _repository.Ticket.GetTicketById(Id);
+                ArgumentNullException.ThrowIfNull(ticket);
+                _repository.Ticket.DeleteTikcket(ticket);
+                _repository.Save();
+                return Ok($"Ticket with id {Id} has been deleted");
+            }
+            catch
+            {
+                return NotFound("Not Found");
+            }
         }
+       
     }
 }

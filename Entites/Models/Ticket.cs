@@ -18,7 +18,6 @@ namespace Entites
         public double Price { get; set; }
         public bool ScanedOrNot { get; set; }
         public string? TrainDegree { get; set; }
-
         public string? UserJop { get; set; }
         public string? UserName { get; set;}
         public string? UserPhone { get; set; }
