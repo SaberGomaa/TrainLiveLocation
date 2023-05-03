@@ -50,6 +50,28 @@ namespace TraineAPI.Presentation.Controllers
             return Ok(usersInTrain);
         }
 
+        [HttpGet(Name = "UsersInTrain")]
+        public ActionResult UsersInTrain(int TrainId)
+        {
+            var usersInTrain = _repository.Ticket.GetAllTikets()
+                .Where(x =>
+                x.TrainId.Equals(TrainId)
+                && x.TakeOffDate.Day == DateTime.Now.Day
+                && x.TakeOffDate.Year == DateTime.Now.Year
+                && x.TakeOffDate.Month == DateTime.Now.Month)
+                .Select(x => new {
+                    TicketId = x.Id,
+                    userId = x.UserId,
+                    Jop = x.UserJop,
+                    UserName = x.UserName,
+                    UserEmail = x.UserEmail,
+                    UserPhone = x.UserPhone,
+                    TakeOffStation = x.TakeOffStation,
+                    ArrivalStation = x.ArrivalStation
+                });
+
+            return Ok(usersInTrain);
+        }
     }
     
 }

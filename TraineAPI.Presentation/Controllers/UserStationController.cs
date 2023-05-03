@@ -30,6 +30,7 @@ namespace TraineAPI.Presentation.Controllers
             var users = _repository.User.GetAllUser().Where(x=>x.StationId == StationId).Select(x=> new { Id = x.Id, Phone = x.Phone, Name = x.Name } );
             return Ok(users);
         }
+      
 
     }
 }
