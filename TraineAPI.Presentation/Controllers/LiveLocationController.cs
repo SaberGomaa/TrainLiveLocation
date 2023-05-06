@@ -21,13 +21,21 @@ namespace TraineAPI.Presentation.Controllers
     {
         private readonly IRepositoryManegar _repository;
         private readonly IMapper _mapper;
+        public static Dictionary<double, (double Longitude, double Latitude)> locationas = new Dictionary<double, (double Longitude, double Latitude)>();
 
         public LiveLocationController(IRepositoryManegar repository, IMapper mapper)
         {
+            for (int i = 0; i < 1000; i++)
+            {
+                if (locationas.ContainsKey(i)) continue;
+                else locationas.Add(i, (0, 0));
+            }
             _repository = repository;
             _mapper = mapper;
         }
 
+       
+           
         //[HttpGet(Name = "Locations")]
         //public IActionResult GetLocations()
         //{
@@ -52,12 +60,16 @@ namespace TraineAPI.Presentation.Controllers
         //    }
         //}
 
+      
+
+        public static double lon = 0;
+        public static double lat = 0;
+
         [HttpGet(Name = "GetLocation")]
         public IActionResult GetLocation(int TrainId)
         {
             try
             {
-
                 var Locations = _repository.LiveLocation.GetLocationsForTrain(TrainId);
 
                 var Longitude = _mapper.Map<IEnumerable<LongitudeDto>>(Locations);
@@ -65,6 +77,7 @@ namespace TraineAPI.Presentation.Controllers
                 var CorrectLongitude = Longitude.GroupBy(i => i)
                     .OrderByDescending(grp =>
                     grp.Count()).Select(grp => grp.Key).FirstOrDefault();
+
 
                 var Latitude = _mapper.Map<IEnumerable<LatitudeDto>>(Locations);
 
@@ -74,21 +87,27 @@ namespace TraineAPI.Presentation.Controllers
 
                 var LocationsForOneTrainToDelete = _repository.LiveLocation.GetLocationsForTrain(TrainId);
 
-                foreach(var Loc in LocationsForOneTrainToDelete)
+                foreach (var Loc in LocationsForOneTrainToDelete)
                 {
                     _repository.LiveLocation.DeleteLocation(Loc);
                 }
 
                 _repository.Save();
-
-                return Ok(new { Longitude = CorrectLongitude, Latitude = CorrectLatitude });
+                if (CorrectLatitude == null || CorrectLongitude == null)
+                {
+                    return Ok(new { Longitude = locationas[TrainId].Longitude, Latitude = locationas[TrainId].Latitude });
+                }
+                else
+                {
+                    locationas[TrainId] = (CorrectLongitude.Longitude , CorrectLatitude.Latitude);
+                    return Ok(new { Longitude = locationas[TrainId].Longitude, Latitude = locationas[TrainId].Latitude });
+                }
             }
             catch
             {
                 return StatusCode(500, "Internal server error");
             }
         }
-
 
         [HttpPost(Name = "CreateLocation")]
         public IActionResult CreateLocation([FromBody] LiveLocationCreationDto location)

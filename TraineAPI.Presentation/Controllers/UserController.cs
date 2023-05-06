@@ -102,7 +102,16 @@ namespace TraineAPI.Presentation.Controllers
 
         }
 
-
+        [HttpPut(Name = "UpdateUser")]
+        public IActionResult UpdateUser([FromBody] UserUpdateDto user, int userId)
+        {
+            var Selecteduser = _repository.User.GetUserById(userId);
+            ArgumentNullException.ThrowIfNull(Selecteduser);
+            var UseryEntity = _mapper.Map(user, Selecteduser);
+            _repository.User.UpdateUser(UseryEntity);
+            _repository.Save();
+            return Ok($"the user with id {userId} has been updeted successfully");
+        }
 
         [HttpDelete(Name = "DeleteUser")]
         public IActionResult DeleteUser(int Id)
@@ -114,16 +123,7 @@ namespace TraineAPI.Presentation.Controllers
             return Ok($"User with id {Id} already has been deleted");
         }
 
-        [HttpPut( Name = "UpdateUser")]
-        public IActionResult UpdateUser([FromBody] UserUpdateDto user, int userId)
-        {
-            var Selecteduser = _repository.User.GetUserById(userId);
-            ArgumentNullException.ThrowIfNull(Selecteduser);
-            var UseryEntity = _mapper.Map(user, Selecteduser);
-            _repository.User.UpdateUser(UseryEntity);
-            _repository.Save();
-            return Ok($"the user with id {userId} has been updeted successfully");
-        }
+      
 
     }
 }
