@@ -21,15 +21,10 @@ namespace TraineAPI.Presentation.Controllers
     {
         private readonly IRepositoryManegar _repository;
         private readonly IMapper _mapper;
-        public static Dictionary<double, (double Longitude, double Latitude)> locationas = new Dictionary<double, (double Longitude, double Latitude)>();
+        static Dictionary<double, (double Longitude, double Latitude)> locationas = new Dictionary<double, (double Longitude, double Latitude)>();
 
         public LiveLocationController(IRepositoryManegar repository, IMapper mapper)
         {
-            for (int i = 0; i < 1000; i++)
-            {
-                if (locationas.ContainsKey(i)) continue;
-                else locationas.Add(i, (0, 0));
-            }
             _repository = repository;
             _mapper = mapper;
         }
@@ -62,14 +57,18 @@ namespace TraineAPI.Presentation.Controllers
 
       
 
-        public static double lon = 0;
-        public static double lat = 0;
 
         [HttpGet(Name = "GetLocation")]
         public IActionResult GetLocation(int TrainId)
         {
             try
             {
+
+                if (!locationas.ContainsKey(TrainId))
+                {
+                    locationas[TrainId] = (0 , 0);
+                }
+
                 var Locations = _repository.LiveLocation.GetLocationsForTrain(TrainId);
 
                 var Longitude = _mapper.Map<IEnumerable<LongitudeDto>>(Locations);
@@ -93,6 +92,9 @@ namespace TraineAPI.Presentation.Controllers
                 }
 
                 _repository.Save();
+
+               
+
                 if (CorrectLatitude == null || CorrectLongitude == null)
                 {
                     return Ok(new { Longitude = locationas[TrainId].Longitude, Latitude = locationas[TrainId].Latitude });
@@ -108,6 +110,9 @@ namespace TraineAPI.Presentation.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+
+
 
         [HttpPost(Name = "CreateLocation")]
         public IActionResult CreateLocation([FromBody] LiveLocationCreationDto location)
