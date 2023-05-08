@@ -54,6 +54,23 @@ namespace TraineAPI.Presentation.Controllers
             }
         }
 
+
+        [HttpGet(Name = "GetTokenById")]
+        public IActionResult GetTokenById(int Id)
+        {
+            var User = _repository.User.GetUserById(Id);
+            if (User == null)
+            {
+                return NotFound($"there is no user with id{Id}");
+            }
+            else
+            {
+                var userDTO = _mapper.Map<userTokenDTO>(User);
+
+                return Ok(userDTO);
+            }
+        }
+
         [HttpGet(Name = "UserLogin")]
         public IActionResult UserLogin(string Phone,string Password)
         {

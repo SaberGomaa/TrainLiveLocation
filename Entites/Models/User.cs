@@ -21,6 +21,7 @@ namespace Entites
         public string? Gender { get; set; }
         public string? BirthDate { get; set; }
         public string? Role { get; set; }
+        public string? TokenForNotifications { get; set; }
 
         public ICollection<Post>? posts { get; set; }
         public ICollection<Comment>? comments { get; set; }
