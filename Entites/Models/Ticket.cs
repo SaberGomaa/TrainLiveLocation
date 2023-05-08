@@ -24,6 +24,17 @@ namespace Entites
 
         public string? UserEmail { get; set; }
 
+        ///////////
+        
+        [ForeignKey(nameof(StationArrival))]
+        public int? StationArrivalId { get; set; }
+        public virtual Station? StationArrival { get; set; }
+
+        //[ForeignKey(nameof(StationTakeOff))]
+        //public int? StationTakeOffId { get; set; }
+        //public virtual Station? StationTakeOff { get; set; }
+
+        /////////
 
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }

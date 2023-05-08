@@ -36,10 +36,12 @@ namespace Shared.DTOs
 
         public int UserId { get; set; }
         public int TrainId { get; set; }
+        public int? StationArrivalId { get; set; }
+
         //public int? PaymentId { get; set; }
     }
 
-    public record TicketDto(int Id, string? TrainNumber, int? NumOfSeat, DateTime TakeOffDate, string? TakeOffStation, string? ArrivalStation, double Price, string? TrainDegree, int? UserId , int TrainId);
+    public record TicketDto(int Id, string? TrainNumber, int? NumOfSeat, DateTime TakeOffDate, string? TakeOffStation, string? ArrivalStation, double Price, string? TrainDegree, int? UserId  , int? StationArrivalId , int TrainId);
     public record UpdateTicketDto(bool ScanedOrNot);
     public record CheckIfScannOrNotDto(int Id, bool ScanedOrNot);
 }

@@ -34,12 +34,12 @@ namespace Entites
         [ForeignKey(nameof(Train))]
         public int? TrainId { get; set; }
         public virtual Train? Train { get; set; }
-        [ForeignKey(nameof(Station))]
-        public int? StationId { get; set; }
-        public virtual Station? Station { get; set; }
 
 
 
+        //[ForeignKey(nameof(Station))]
+        //public int? StationId { get; set; }
+        //public virtual Station? Station { get; set; }
 
     }
 }
