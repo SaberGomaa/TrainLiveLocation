@@ -74,8 +74,6 @@ namespace TraineAPI.Presentation.Controllers
         [HttpGet(Name = "UserLogin")]
         public IActionResult UserLogin(string Phone,string Password)
         {
-           
-          
             User x = _repository.User.GetUserByPhone(Phone);
             if (x == null)
                 return BadRequest("Password or Phone is inCorrect!");
@@ -85,10 +83,9 @@ namespace TraineAPI.Presentation.Controllers
             }
             else
             {
-                var c=_mapper.Map<userDto>(x);
+                var c =_mapper.Map<userDto>(x);
                 return Ok(c);
             }
-
         }
 
         [HttpPost(Name = "CreateUser")]
