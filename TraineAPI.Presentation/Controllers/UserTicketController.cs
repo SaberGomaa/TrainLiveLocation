@@ -43,8 +43,7 @@ namespace TraineAPI.Presentation.Controllers
                     UserName = x.UserName ,
                     UserEmail = x.UserEmail ,
                     UserPhone = x.UserPhone ,
-                    TakeOffStation = x.TakeOffStation ,
-                    ArrivalStation= x.ArrivalStation    
+                    ArrivalStationID= x.StationArrivalId    
                 });
 
             return Ok(usersInTrain);

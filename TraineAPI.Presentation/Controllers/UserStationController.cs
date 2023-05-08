@@ -24,13 +24,12 @@ namespace TraineAPI.Presentation.Controllers
             _mapper = mapper;
         }
 
-        //[HttpGet(Name ="UserInStation")]
-        //public ActionResult UserInStation (int StationId) 
-        //{
-        //    var users = _repository.User.GetAllUser().Where(x=>x.StationId == StationId).Select(x=> new { Id = x.Id, Phone = x.Phone, Name = x.Name } );
-        //    return Ok(users);
-        //}
-      
+        [HttpGet(Name = "UserInStation")]
+        public ActionResult UserInStation(int StationId)
+        {
+            var users = _repository.Ticket.GetAllTikets().Where(x => x.StationArrivalId == StationId).Select(x => new { Id = x.Id, Phone = x.UserPhone, Name = x.UserName });
+            return Ok(users);
+        }
 
     }
 }
