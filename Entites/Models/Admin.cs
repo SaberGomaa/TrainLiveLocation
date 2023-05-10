@@ -17,13 +17,11 @@ namespace Entites
         public string? Phone { get; set; }
         public string? Password { get; set; }
         public string? AdminDegree { get; set; }
-
+        public bool FirstTime { get; set; } = true;
         public ICollection<News>? News { get; set; }
 
         public ICollection<Comment>? comments { get; set; }
         public ICollection<Post>? posts { get; set; }
-
-
 
     }
 }

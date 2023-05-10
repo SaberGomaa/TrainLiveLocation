@@ -11,8 +11,6 @@ namespace Shared.DTOs
     {
 
         [Required]
-        public int Id { get; set; }
-        [Required]
         public string Name { get; set; } = string.Empty;
         [Required]
         public string Email { get; set; } = string.Empty;
@@ -22,8 +20,10 @@ namespace Shared.DTOs
         public string Password { get; set; } = string.Empty;
         [Required]
         public string AdminDegree { get; set; } = string.Empty;
+        public bool FirstTime { get; set; } = true;
+
     }
-    public record AdminDto(int Id, string? Name, string? Password, string? Phone, string? Email, string? AdminDegree);
+    public record AdminDto(int Id, string? Name, string? Password, string? Phone, string? Email, bool FirstTime, string? AdminDegree);
 
     public record AdminCreationDto : AdminWithoutchiledForManipulationDto;
 
