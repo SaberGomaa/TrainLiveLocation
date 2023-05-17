@@ -14,8 +14,6 @@ namespace Entites
         public string?  Descreption { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
-
-
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
         public virtual User? User { get; set; }

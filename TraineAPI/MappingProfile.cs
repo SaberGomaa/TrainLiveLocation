@@ -77,6 +77,11 @@ namespace TraineAPI
 
             CreateMap<PostUpdateDto, Post>();
 
+            // Report
+            CreateMap<Report, ReportDto>();
+            CreateMap<ReportDto, Report>();
+            CreateMap<ReportCreationDto, Report>();
+            CreateMap<ReportUpdateDto, Report>();
 
             //user
             CreateMap<User, userDto>();
@@ -86,6 +91,7 @@ namespace TraineAPI
             CreateMap<UserCreationDto, User>();
             CreateMap<UserUpdateDto, User>();
 
+            
 
             //train
             CreateMap<Train, TrainDto>();
