@@ -12,7 +12,7 @@ namespace Entites
         [Column("ReportId")]
         public int Id { get; set; }
         public string?  Descreption { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
 
 
