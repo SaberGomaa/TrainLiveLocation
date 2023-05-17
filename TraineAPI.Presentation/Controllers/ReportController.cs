@@ -25,8 +25,8 @@ namespace TraineAPI.Presentation.Controllers
         }
 
 
-        [HttpGet(Name ="GetAllReports")]
-        public IActionResult GetAllReports() 
+        [HttpGet(Name = "GetAllReports")]
+        public IActionResult GetAllReports()
         {
             try
             {
@@ -50,16 +50,61 @@ namespace TraineAPI.Presentation.Controllers
             }
         }
 
+
+
+        [HttpGet("{id:int}", Name = "GetReportsForPost")]
+        public IActionResult GetReportsForPost(int id)
+        {
+            try
+            {
+                var r = _repository.Report.GetAllReports().Where(r => r.PostId.Equals(id));
+
+                var reports = _mapper.Map<IEnumerable<ReportDto>>(r);
+
+                if (reports is null)
+                {
+                    return StatusCode(404, "Empty");
+                }
+                else
+                {
+                    return Ok(reports);
+                }
+            }
+            catch
+            {
+                return StatusCode(404, "Not Found");
+            }
+        }
         [HttpPost(Name = "CreateReport")]
         public IActionResult CreateReport(ReportCreationDto r)
         {
-            var report = _mapper.Map<Report>(r);
+            try
+            {
+                var report = _mapper.Map<Report>(r);
 
-            _repository.Report.CreateReport(report);
-            _repository.Save();
-            return Ok("Created");
+                _repository.Report.CreateReport(report);
+                _repository.Save();
+                return Ok("Created");
+            }catch
+            {
+                return BadRequest("Error");
+            }
         }
 
-
+        [HttpDelete("{id:int}", Name ="DeleteReport")]
+        public IActionResult DeleteReport(int id)
+        {
+            try
+            {
+                var r = _repository.Report.GetReportById(id);
+                _repository.Report.DeleteReport(r);
+                _repository.Save();
+                return Ok("Delete Sucessfully");
+            }
+            catch
+            {
+                return BadRequest("Error");
+            }
+        }
     }
 }
