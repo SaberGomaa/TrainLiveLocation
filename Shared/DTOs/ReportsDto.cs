@@ -15,7 +15,7 @@ namespace Shared.DTOs
         public int UserId { get; set; }
         public int PostId { get; set; }
     }
-    public record ReportDto(string? Descreption , int UserId , int postId);
+    public record ReportDto(int id ,string? Descreption , int UserId , int postId);
 
     public record ReportCreationDto : ReportWithoutchiledForManipulationDto;
 

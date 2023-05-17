@@ -26,21 +26,39 @@ namespace TraineAPI.Presentation.Controllers
 
 
         [HttpGet(Name ="GetAllReports")]
-        public ActionResult GetAllReports() 
+        public IActionResult GetAllReports() 
         {
             try
             {
-                var reports = _repository.Report.GetAllReports().ToList();
+                var r = _repository.Report.GetAllReports();
 
-                return Ok(reports);
+                var reports = _mapper.Map<IEnumerable<ReportDto>>(r);
+
+                if (reports is null)
+                {
+                    return StatusCode(404, "Empty");
+
+                }
+                else
+                {
+                    return Ok(reports);
+                }
             }
             catch
             {
-                return StatusCode(404 , "Not Found");
+                return StatusCode(404, "Not Found");
             }
         }
 
-       
+        [HttpPost(Name = "CreateReport")]
+        public IActionResult CreateReport(ReportCreationDto r)
+        {
+            var report = _mapper.Map<Report>(r);
+
+            _repository.Report.CreateReport(report);
+            _repository.Save();
+            return Ok("Created");
+        }
 
 
     }
