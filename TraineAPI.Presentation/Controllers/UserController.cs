@@ -151,6 +151,15 @@ namespace TraineAPI.Presentation.Controllers
             var posts = _repository.Post.GetAllPosts().Where(x=>x.UserId.Equals(Id));
             var tickets = _repository.Ticket.GetAllTikets().Where(c=>c.UserId.Equals(Id));
             var reports = _repository.Report.GetAllReports().Where(c=>c.UserId.Equals(Id));
+            var comments = _repository.Comment.GetAllComments().Where(c => c.UserId.Equals(Id));
+
+            if (comments != null)
+            {
+                foreach (var comment in comments)
+                {
+                    _repository.Comment.DeleteComment(comment);
+                }
+            }
 
             if (posts != null)
             {
