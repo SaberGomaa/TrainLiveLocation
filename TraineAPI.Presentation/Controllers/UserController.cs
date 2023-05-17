@@ -146,6 +146,35 @@ namespace TraineAPI.Presentation.Controllers
         [HttpDelete(Name = "DeleteUser")]
         public IActionResult DeleteUser(int Id)
         {
+
+
+            var posts = _repository.Post.GetAllPosts().Where(x=>x.UserId.Equals(Id));
+            var tickets = _repository.Ticket.GetAllTikets().Where(c=>c.UserId.Equals(Id));
+            var reports = _repository.Report.GetAllReports().Where(c=>c.UserId.Equals(Id));
+
+            if (posts != null)
+            {
+                foreach (var post in posts)
+                {
+                    _repository.Post.DeletePost(post);
+                }
+            }
+            if(tickets != null)
+            {
+                foreach(var ticket in tickets)
+                {
+                    _repository.Ticket.DeleteTikcket(ticket);
+                }
+            }
+
+            if(reports != null)
+            {
+                foreach( var report in reports)
+                {
+                    _repository.Report.DeleteReport(report);
+                }
+            }
+
             var user = _repository.User.GetUserById(Id);
             ArgumentNullException.ThrowIfNull(user);
             _repository.User.DeleteUser(user);

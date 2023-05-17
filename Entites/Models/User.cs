@@ -27,7 +27,6 @@ namespace Entites
         public ICollection<Comment>? comments { get; set; }
         public ICollection<Report>? reports { get; set; }
         public ICollection<Ticket>? tickets { get; set; }
-
         public ICollection<LiveLocation> liveLocations { get; set; }
 
 

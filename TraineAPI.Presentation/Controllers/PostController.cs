@@ -95,16 +95,7 @@ namespace TraineAPI.Presentation.Controllers
 
         }
 
-        [HttpDelete("{Id:int}", Name = "DeletePost")]
-        public IActionResult DeletePost(int Id)
-        {
-            var post = _repository.Post.GetPostById(Id);
-            ArgumentNullException.ThrowIfNull(post);
-            _repository.Post.DeletePost(post);
-            _repository.Save();
-            return Ok($"Post with id {Id} deleted");
-        }
-
+       
 
         [HttpPut("{Id:int}", Name = "UpdatePost")]
         public IActionResult UpdatePost([FromBody] PostUpdateDto post, int Id)
@@ -122,6 +113,35 @@ namespace TraineAPI.Presentation.Controllers
                 _repository.Save();
                 return Ok($"the Post with id {Id} has been updeted successfully");
             }
+        }
+
+        [HttpDelete("{Id:int}", Name = "DeletePost")]
+        public IActionResult DeletePost(int Id)
+        {
+
+            var comments = _repository.Comment.GetCommentsByPostId(Id);
+            var reports = _repository.Report.GetAllReports().Where(c => c.UserId.Equals(Id));
+
+            if (comments != null) 
+            {
+                foreach(var comment in comments)
+                {
+                    _repository.Comment.DeleteComment(comment);
+                }
+            }
+
+            if (reports != null)
+            {
+                foreach (var report in reports)
+                {
+                    _repository.Report.DeleteReport(report);
+                }
+            }
+            var post = _repository.Post.GetPostById(Id);
+            ArgumentNullException.ThrowIfNull(post);
+            _repository.Post.DeletePost(post);
+            _repository.Save();
+            return Ok($"Post with id {Id} deleted");
         }
 
     }
