@@ -25,6 +25,23 @@ namespace TraineAPI.Presentation.Controllers
         }
 
 
+        [HttpGet(Name ="GetAllReports")]
+        public ActionResult GetAllReports() 
+        {
+            try
+            {
+                var reports = _repository.Report.GetAllReports().ToList();
+
+                return Ok(reports);
+            }
+            catch
+            {
+                return StatusCode(404 , "Not Found");
+            }
+        }
+
+       
+
 
     }
 }
