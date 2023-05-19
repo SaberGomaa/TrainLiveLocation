@@ -20,6 +20,7 @@ namespace Entites
         public string? TrainDegree { get; set; }
         public string? UserJop { get; set; }
         public string? UserName { get; set;}
+        public string? UserToken { get; set; }
         public string? UserPhone { get; set; }
 
         public string? UserEmail { get; set; }

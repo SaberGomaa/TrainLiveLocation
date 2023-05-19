@@ -73,6 +73,7 @@ namespace TraineAPI.Presentation.Controllers
             TicketEntity.UserName = user.Name;
             TicketEntity.UserPhone = user.Phone;
             TicketEntity.UserEmail = user.Email;
+            TicketEntity.UserToken = user.TokenForNotifications;
 
             _repository.Ticket.CreateTicket(TicketEntity);
             _repository.Save();
