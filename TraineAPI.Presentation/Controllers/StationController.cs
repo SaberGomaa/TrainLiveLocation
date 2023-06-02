@@ -91,6 +91,13 @@ namespace TraineAPI.Presentation.Controllers
         [HttpDelete(Name = "DeleteStation")]
         public IActionResult DeleteStation(int Id)
         {
+            var tks = _repository.Ticket.GetAllTikets().Where(c=>c.StationArrivalId.Equals(Id));
+
+            foreach (var t in tks)
+            {
+                _repository.Ticket.DeleteTikcket(t);
+            }
+
             var station = _repository.Station.GetStationById(Id);
             ArgumentNullException.ThrowIfNull(station);
             _repository.Station.DeleteStation(station);

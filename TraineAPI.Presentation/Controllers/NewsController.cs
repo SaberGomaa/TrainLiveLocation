@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using Contracts;
-using Entites;
 using Entites.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore;
 using Shared.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace TraineAPI.Presentation.Controllers
 {
@@ -21,13 +19,13 @@ namespace TraineAPI.Presentation.Controllers
 
         private readonly IRepositoryManegar _repository;
         private readonly IMapper _mapper;
-
-        public NewsController(IRepositoryManegar repository, IMapper mapper)
+        private readonly IWebHostEnvironment host;
+        public NewsController(IRepositoryManegar repository, IMapper mapper, IWebHostEnvironment host)
         {
             _repository = repository;
             _mapper = mapper;
+            this.host = host;
         }
-
 
 
         [HttpGet(Name = "GetNews")]
@@ -56,6 +54,43 @@ namespace TraineAPI.Presentation.Controllers
         }
 
 
+
+        [HttpPost(Name = "CreateNew")]
+        public IActionResult CreateNew(IFormFile image, string content)
+        {
+            News News = new News();
+            ArgumentNullException.ThrowIfNull(News);
+            if (!ModelState.IsValid)
+                return UnprocessableEntity(ModelState);
+
+            if (image == null || image.Length == 0)
+                return BadRequest("Please select an image file to upload.");
+
+            string fileName = image.FileName;
+            //string fullPath = Path.Combine(@"h:\root\home\saberelsayed-001\www\trainapi\dashborad\", fileName);
+
+            var path = $@"h:\root\home\saberelsayed-001\www\test\" + fileName;
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                image.CopyTo(stream);
+            }
+
+            //image.CopyTo(new FileStream(fullPath, FileMode.Create));
+
+            News.ContentOfPost = content;
+            News.Img = "NewsImages/" + fileName;
+
+            var NewsEntity = _mapper.Map<News>(News);
+
+            _repository.news.CreateNews(NewsEntity);
+            _repository.Save();
+            var NewsToReturn = _mapper.Map<NewsDto>(NewsEntity);
+            return CreatedAtRoute("GetNewsById", new { id = NewsToReturn.Id }, NewsToReturn);
+
+        }
+
+
         [HttpPost(Name = "CreateNews")]
         public IActionResult CreateNews([FromBody] NewsCreateDto News)
         {
@@ -70,7 +105,6 @@ namespace TraineAPI.Presentation.Controllers
             _repository.Save();
             var NewsToReturn = _mapper.Map<NewsDto>(NewsEntity);
             return CreatedAtRoute("GetNewsById", new { id = NewsToReturn.Id }, NewsToReturn);
-
 
         }
 
