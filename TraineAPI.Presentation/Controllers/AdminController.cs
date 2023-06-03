@@ -16,6 +16,8 @@ namespace TraineAPI.Presentation.Controllers
 
     [ApiController]
     //(ControllerBase)which provides all necessary behavior for the derived class
+    [ApiExplorerSettings(IgnoreApi = true)]
+
     public class AdminController : ControllerBase
     {
         private readonly IRepositoryManegar _repository;
