@@ -20,6 +20,7 @@ namespace Shared.DTOs
 
         [Required(ErrorMessage = "NumOfTrainCars is a required field.")]
         public int NumOfTrainCars { get; init; }
+        public double TrainTime { get; set; }
 
         //////
         [Required(ErrorMessage = "Conductor is a required field.")]
@@ -35,7 +36,7 @@ namespace Shared.DTOs
         public string? CurrentLocation { get; init; }
     }
 
-    public record TrainDto(int Id, string? Degree ,string? NumOfSeat, string? NumOfTrainCars, string? Conductor, string? Driver ,string? CurrentLocation , string TrainNumber);
+    public record TrainDto(int Id, string? Degree ,string? NumOfSeat, string? NumOfTrainCars, string? Conductor, double TrainTime,  string? Driver ,string? CurrentLocation , string TrainNumber);
     public record ConductorDto(int Id,string? Conductor);
     public record DreiverDto(int Id, string? Driver);
     

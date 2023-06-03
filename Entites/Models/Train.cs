@@ -1,10 +1,5 @@
 ﻿using Entites.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entites
 {
@@ -15,6 +10,7 @@ namespace Entites
         public string? Degree { get; set; }
         public string? TrainNumber { get; set; }
         public int NumOfSeat { get; set; }
+        public double TrainTime { get; set; }
         public int NumOfTrainCars { get; set; }
         //////
         public string? Conductor { get; set; }

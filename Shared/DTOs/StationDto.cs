@@ -15,6 +15,7 @@ namespace Shared.DTOs
         public string? NextStation { get; init; }
         [Required(ErrorMessage = "Description is a required field.")]
         public string? Description { get; init; }
+        public int Position { get; set; }
 
         [Required(ErrorMessage = "TrainId is a required field.")]
         [Range(0,10000)]
@@ -23,8 +24,8 @@ namespace Shared.DTOs
         public double Latitude { get; set; }
     }
 
-    public record StationDto(int Id, string? Name, string? NextStation, string? Description, int TrainId, double Longitude, double Latitude);
-    public record StatioForOneTrainDto(int Id, string? Name, string? NextStation, string? Description, int TrainId, double Longitude, double Latitude);
+    public record StationDto(int Id, string? Name, string? NextStation,int Position, string? Description, int TrainId, double Longitude, double Latitude);
+    public record StatioForOneTrainDto(int Id, string? Name, string? NextStation, int Position, string? Description, int TrainId, double Longitude, double Latitude);
     public record StationForUpdateDto: StationForManubalitaion;
     public record StationForCreateDto : StationForManubalitaion;
 }
